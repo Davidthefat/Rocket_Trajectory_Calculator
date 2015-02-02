@@ -25,17 +25,17 @@ private:
 	std::array<T,N> *Values;
 public:
 	Vector();
-	Vector<T, N> &operator=(const Vector<T, N>& right);
-	T &operator[](const int& right);
-	Vector<T, N> &operator+=(const Vector<T, N>& right);
-	Vector<T, N> &operator*=(const Vector<T, N>& right);
-	Vector<T, N> &operator+=(T right);
-	Vector<T, N> &operator*=(T right);
+	Vector<T, N> &operator=(const Vector<T, N>&);
+	T &operator[](const int&);
+	Vector<T, N> &operator+=(const Vector<T, N>&);
+	Vector<T, N> &operator*=(const Vector<T, N>&);
+	Vector<T, N> &operator+=(T);
+	Vector<T, N> &operator*=(T);
 
-	friend Vector<T, N> operator*<T, N>(Vector<T, N> left, const Vector<T, N>& right);
-	friend Vector<T, N> operator*<T, N>(Vector<T, N> left, T right);
-	friend Vector<T, N> operator+<T, N>(Vector<T, N> left, const Vector<T, N>& right);
-	friend Vector<T, N> operator+<T, N>(Vector<T, N> left, T right);
+	friend Vector<T, N> operator*<T, N>(Vector<T, N>, const Vector<T, N>&);
+	friend Vector<T, N> operator*<T, N>(Vector<T, N>, T);
+	friend Vector<T, N> operator+<T, N>(Vector<T, N>, const Vector<T, N>&);
+	friend Vector<T, N> operator+<T, N>(Vector<T, N>, T);
 
 	const T getValue(size_t) const;
 	void setValue(size_t, const T);

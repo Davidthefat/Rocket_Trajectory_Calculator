@@ -1,3 +1,4 @@
+#pragma once
 #include "Vector.h"
 
 template <class T, std::size_t N >
@@ -23,9 +24,9 @@ Vector<T, N> &Vector<T, N>::operator=(const Vector<T, N>& right)
 }
 
 template <class T, std::size_t N >
-T &Vector<T, N>::operator[](const int& right)
+T &Vector<T, N>::operator[](const int& pos)
 {
-	return this->Values->at(right);
+	return this->Values->at(pos);
 }
 
 template <class T, std::size_t N >
