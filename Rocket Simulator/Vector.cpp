@@ -58,22 +58,30 @@ Vector<T, N> &Vector<T, N>::operator*=(T right)
 	return *this;
 }
 template <class T, std::size_t N >
-Vector<T, N> operator*(Vector<T, N> left, const Vector<T, N>& right)
+Vector<T, N> operator*(Vector<T, N>& left, const Vector<T, N>& right)
 {
 	return left *= right;
 }
 template <class T, std::size_t N >
-Vector<T, N> operator*(Vector<T, N> left, T right)
+Vector<T, N> operator*(Vector<T, N>& left, T right)
 {
 	return left *= right;
 }
 template <class T, std::size_t N >
-Vector<T, N> operator+(Vector<T, N> left, const Vector<T, N>& right)
+Vector<T, N> operator+(Vector<T, N>& left, const Vector<T, N>& right)
 {
 	return left += right;
 }
 template <class T, std::size_t N >
-Vector<T, N> operator+(Vector<T, N> left, T right)
+Vector<T, N> operator+(Vector<T, N>& left, T right)
 {
 	return left += right;
+}
+template <class T, std::size_t N >
+T operator|(Vector<T, N>& left, const Vector<T, N>& right)
+{
+	T result = (*left.Values)[0] * (*right.Values)[0];
+	for (int i = 1; i < N; i++)
+		result += ((*left.Values)[i] * (*right.Values)[i]);
+	return result;
 }

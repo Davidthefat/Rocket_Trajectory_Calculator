@@ -12,5 +12,6 @@ public:
 	Quaternion(Vector<double, 4>*);
 	double &operator[](const int&);
 	friend Quaternion operator+(Quaternion, Quaternion);
+	friend Quaternion operator*(Quaternion, Quaternion);
 };
 
