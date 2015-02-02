@@ -4,11 +4,15 @@
 Calculator::Calculator(Vehicle *in)
 {
 	Target = in;
+	Filter = new KalmanFilter(1.0, 1.0, 1.0, 1.0);
+	Env = new Environment();
 }
 
 Calculator::~Calculator()
 {
 	Target = nullptr; //Original Vehicle object is preserved; must be freed independently.
+	delete Filter;
+	delete Env;
 }
 
 void Calculator::calcWeight(double dT)
@@ -82,10 +86,11 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 	calcWeightRate(Pc, Tc);
 	calcWeight(dT);
 	calcDrag();
+	double TempAcc = Target->THRUST - Target->DRAG - Target->WEIGHT;
 	Vector<double, 3> temp;
 	temp[X] = 0.0;
 	temp[Y] = 0.0;
-	temp[Z] = Target->THRUST - Target->DRAG - Target->WEIGHT;
+	temp[Z] = TempAcc;
 	Target->setAcceleration(temp);
 }
 

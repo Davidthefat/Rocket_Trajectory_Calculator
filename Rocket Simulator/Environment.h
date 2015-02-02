@@ -1,6 +1,5 @@
 #pragma once
 #include "Vector.h"
-#include "Vector.cpp"
 
 const double PRESSURE_ATM = 14.7;	// psi
 

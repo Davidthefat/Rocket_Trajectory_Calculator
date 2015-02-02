@@ -1,6 +1,7 @@
 #pragma once
 #include "Vehicle.h"
 #include "Environment.h"
+#include "KalmanFilter.h"
 
 const double RHO_SL = 0.074887;		// lbm/ft^3
 const double G = 32.2;				// ft/s^2
@@ -19,6 +20,7 @@ class Calculator
 private:
 	Vehicle *Target;
 	Environment *Env;
+	KalmanFilter *Filter;
 	double AirDensity;
 	double ExhaustMach;
 	double ExitPressure;

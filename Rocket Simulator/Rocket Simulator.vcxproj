@@ -68,6 +68,7 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="KalmanFilter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
@@ -75,6 +76,7 @@
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="KalmanFilter.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>

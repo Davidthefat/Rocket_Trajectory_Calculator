@@ -7,4 +7,12 @@ Environment::Environment()
 	Temperature = 527.26;
 }
 
+double Environment::getPressure()
+{
+	return Pressure;
+}
 
+double Environment::getTemperature()
+{
+	return Temperature;
+}
