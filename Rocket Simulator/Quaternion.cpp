@@ -20,10 +20,10 @@ Quaternion operator+(Quaternion left, Quaternion right)
 Quaternion operator*(Quaternion left, Quaternion right)
 {
 	Quaternion temp;
-	temp[0] = (left.elements[0] * right.elements[0]) + (left.elements|right.elements);
-	temp[1] = left.elements[2] * right.elements[3] - left.elements[3] * right.elements[2] + right.elements[1] * left.elements[0] + left.elements[1] * right.elements[0];
-	temp[2] = (left.elements[1] * right.elements[3] - left.elements[3] * right.elements[1])*-1.0 + right.elements[2] * left.elements[0] + left.elements[2] * right.elements[0];
-	temp[3] = left.elements[1] * right.elements[2] - left.elements[2] * right.elements[1] + right.elements[3] * left.elements[0] + left.elements[3] * right.elements[0];
+	temp[W] = (left[W] * right[W]) - (left[VX] * right[VX]) - (left[VY] * right[VY]) - (left[VZ] * right[VZ]);
+	temp[VX] = left[VY] * right[VZ] - left[VZ] * right[VY] + right[VX] * left[W] + left[VX] * right[W];
+	temp[VY] = (left[VX] * right[VZ] - left[VZ] * right[VX])*-1.0 + right[VY] * left[W] + left[VY] * right[W];
+	temp[VZ] = left[VX] * right[VY] - left[VY] * right[VX] + right[VZ] * left[W] + left[VZ] * right[W];
 	return temp;
 }
 

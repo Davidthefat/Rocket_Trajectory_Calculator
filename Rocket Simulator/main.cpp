@@ -7,14 +7,14 @@ int main(int argc, char **argv)
 {
 	Quaternion test;
 	Quaternion test2;
-	test[0] = -16.0;
-	test[1] = 3.0;
-	test[2] = 4.0;
-	test[3] = 3.0;
-	test2[0] = 4.0;
-	test2[1] = 3.9;
-	test2[2] = -1.0;
-	test2[3] = -3.0;
+	test[W] = 49.0;
+	test[VX] = -32.0;
+	test[VY] = 8.0;
+	test[VZ] = 1.0;
+	test2[W] = 4.3;
+	test2[VX] = 5.9;
+	test2[VY] = 1.3;
+	test2[VZ] = -3.7;
 	test = test * test2;
 	for (int i = 0; i < 4; i++)
 		cout << test[i] << "\t";

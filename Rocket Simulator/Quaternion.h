@@ -2,6 +2,8 @@
 #include "Vector.h"
 #include "Vector.cpp"
 
+enum comp{W, VX, VY, VZ};
+
 class Quaternion :
 	public Vector<double, 4>
 {
