@@ -11,7 +11,9 @@ private:
 	Vector<double, 4> elements;
 public:
 	Quaternion();
+	Quaternion(double, double, double, double);
 	Quaternion(Vector<double, 4>*);
+	Quaternion(Vector<double, 3>*); // From Euler Angles
 	double &operator[](const int&);
 	friend Quaternion operator+(Quaternion, Quaternion);
 	friend Quaternion operator*(Quaternion, Quaternion);

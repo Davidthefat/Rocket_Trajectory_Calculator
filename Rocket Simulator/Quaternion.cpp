@@ -12,6 +12,22 @@ Quaternion::Quaternion(Vector<double, 4>* in)
 	elements = *in;
 }
 
+Quaternion::Quaternion(double w, double x, double y, double z)
+{
+	elements[W] = w;
+	elements[VX] = x;
+	elements[VY] = y;
+	elements[VZ] = z;
+}
+
+Quaternion::Quaternion(Vector<double, 3>* in)
+{
+	Quaternion yaw(cos((*in)[Y] / 2), 0, 0, sin((*in)[Y] / 2));
+	Quaternion roll(cos((*in)[Z] / 2), sin((*in)[Z] / 2), 0, 0);
+	Quaternion pitch(cos((*in)[X] / 2), 0, sin((*in)[X] / 2), 0);
+	elements = (yaw*pitch*roll).elements;
+}
+
 Quaternion operator+(Quaternion left, Quaternion right)
 {
 	return Quaternion(&(left.elements+right.elements));
