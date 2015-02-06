@@ -51,6 +51,17 @@ Quaternion::Quaternion(Vector<double, 3>* in)
 	elements[VZ] = c1*s2*c3 - s1*c2*s3;
 }
 
+Quaternion Quaternion::conj()
+{
+	Quaternion result((*this)[X], -(*this)[VX], -(*this)[VY], -(*this)[VZ]);
+	return result;
+}
+
+void Quaternion::rotate(Quaternion* in)
+{
+	*this = (*in) * (*this) * (*in).conj();
+}
+
 Quaternion operator+(Quaternion left, Quaternion right)
 {
 	return Quaternion(&(left.elements+right.elements));
