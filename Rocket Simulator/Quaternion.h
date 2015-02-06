@@ -16,6 +16,8 @@ public:
 	Quaternion(Vector<double, 4>*);
 	Quaternion(Vector<double, 3>*); // From Euler Angles
 	Quaternion conj();
+	Vector<double, 3> toEuler();
+	void norm();
 	void rotate(Quaternion*);
 	double &operator[](const int&);
 	friend Quaternion operator+(Quaternion, Quaternion);

@@ -57,6 +57,24 @@ Quaternion Quaternion::conj()
 	return result;
 }
 
+Vector<double, 3> Quaternion::toEuler()
+{
+	this->norm();
+	
+}
+
+void Quaternion::norm()
+{
+	double temp = (*this)[W] * (*this)[W];
+	temp += (*this)[VX] * (*this)[VX];
+	temp += (*this)[VY] * (*this)[VY];
+	temp += (*this)[VZ] * (*this)[VZ];
+	(*this)[W] /= temp;
+	(*this)[VX] /= temp;
+	(*this)[VY] /= temp;
+	(*this)[VZ] /= temp;
+}
+
 void Quaternion::rotate(Quaternion* in)
 {
 	*this = (*in) * (*this) * (*in).conj();

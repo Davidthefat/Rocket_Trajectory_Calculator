@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Quaternion test(0.0, 0.0, 0.0,1.0);
+	Quaternion test(0.0, 0.0, 0.0,0.0);
 	Quaternion test2(0.0, M_PI / 4.0, 0.0);
 	
 	for (int i = 0; i < 4; i++)
