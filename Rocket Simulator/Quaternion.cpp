@@ -60,7 +60,21 @@ Quaternion Quaternion::conj()
 Vector<double, 3> Quaternion::toEuler()
 {
 	this->norm();
-	
+	Vector<double, 3> result;
+	result[X] = M_PI / 2.0;
+	result[Y] = 2 * atan2((*this)[VX], (*this)[VY]);
+	result[Z] = 0.0;
+	double temp = (*this)[VX] * (*this)[VY] + (*this)[VZ] * (*this)[W];
+	if (temp > 0.499)
+		return result;
+	if (temp < -0.499)
+		return result * -1.0;
+	result[X] = asin(2 * temp);
+	result[Y] = atan2(2 * (*this)[VY] * (*this)[W] - 2 * (*this)[VX] * (*this)[VZ],
+		1 - 2 * (*this)[VY] * (*this)[VY] - 2 * (*this)[VZ] * (*this)[VZ]);
+	result[Z] = atan2(2 * (*this)[VX] * (*this)[W] - 2 * (*this)[VY] * (*this)[VZ],
+		1 - 2 * (*this)[VX] * (*this)[VX] - 2 * (*this)[VZ] * (*this)[VZ]);
+	return result;
 }
 
 void Quaternion::norm()
@@ -69,6 +83,7 @@ void Quaternion::norm()
 	temp += (*this)[VX] * (*this)[VX];
 	temp += (*this)[VY] * (*this)[VY];
 	temp += (*this)[VZ] * (*this)[VZ];
+	temp = sqrt(temp);
 	(*this)[W] /= temp;
 	(*this)[VX] /= temp;
 	(*this)[VY] /= temp;
