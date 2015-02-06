@@ -12,6 +12,7 @@ private:
 public:
 	Quaternion();
 	Quaternion(double, double, double, double);
+	Quaternion(double, double, double);//From Euler Angles; Pitch, Yaw, Roll
 	Quaternion(Vector<double, 4>*);
 	Quaternion(Vector<double, 3>*); // From Euler Angles
 	double &operator[](const int&);
