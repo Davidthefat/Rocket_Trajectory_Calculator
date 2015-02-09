@@ -59,35 +59,48 @@ Quaternion Quaternion::conj()
 
 Vector<double, 3> Quaternion::toEuler()
 {
-	this->norm();
+	Quaternion norm = this->norm();
 	Vector<double, 3> result;
 	result[X] = M_PI / 2.0;
-	result[Y] = 2 * atan2((*this)[VX], (*this)[VY]);
+	result[Y] = 2 * atan2(norm[VX], norm[VY]);
 	result[Z] = 0.0;
-	double temp = (*this)[VX] * (*this)[VY] + (*this)[VZ] * (*this)[W];
+	double temp = norm[VX] * norm[VY] + norm[VZ] * norm[W];
 	if (temp > 0.499)
 		return result;
 	if (temp < -0.499)
 		return result * -1.0;
 	result[X] = asin(2 * temp);
-	result[Y] = atan2(2 * (*this)[VY] * (*this)[W] - 2 * (*this)[VX] * (*this)[VZ],
-		1 - 2 * (*this)[VY] * (*this)[VY] - 2 * (*this)[VZ] * (*this)[VZ]);
-	result[Z] = atan2(2 * (*this)[VX] * (*this)[W] - 2 * (*this)[VY] * (*this)[VZ],
-		1 - 2 * (*this)[VX] * (*this)[VX] - 2 * (*this)[VZ] * (*this)[VZ]);
+	result[Y] = atan2(2 * norm[VY] * norm[W] - 2 * norm[VX] * norm[VZ],
+		1 - 2 * norm[VY] * norm[VY] - 2 * norm[VZ] * norm[VZ]);
+	result[Z] = atan2(2 * norm[VX] * norm[W] - 2 * norm[VY] * norm[VZ],
+		1 - 2 * norm[VX] * norm[VX] - 2 * norm[VZ] * norm[VZ]);
 	return result;
 }
 
-void Quaternion::norm()
+Quaternion operator+(Quaternion left, Quaternion right)
 {
-	double temp = (*this)[W] * (*this)[W];
-	temp += (*this)[VX] * (*this)[VX];
-	temp += (*this)[VY] * (*this)[VY];
-	temp += (*this)[VZ] * (*this)[VZ];
+	return Quaternion(&(left.elements + right.elements));
+}
+
+Quaternion operator*(Quaternion left, Quaternion right)
+{
+	Quaternion temp;
+	temp[W] = (left[W] * right[W]) - ((left[VX] * right[VX]) + (left[VY] * right[VY]) + (left[VZ] * right[VZ]));
+	temp[VX] = (left[VY] * right[VZ] - left[VZ] * right[VY]) + right[VX] * left[W] + left[VX] * right[W];
+	temp[VY] = (left[VZ] * right[VX] - left[VX] * right[VZ]) + right[VY] * left[W] + left[VY] * right[W];
+	temp[VZ] = (left[VX] * right[VY] - left[VY] * right[VX]) + right[VZ] * left[W] + left[VZ] * right[W];
+	return temp;
+}
+Quaternion Quaternion::norm()
+{
+	Quaternion result;
+	double temp = 0.0;
+	for (int i = 0; i < 4; i++)
+		temp += (*this)[i] * (*this)[i];
 	temp = sqrt(temp);
-	(*this)[W] /= temp;
-	(*this)[VX] /= temp;
-	(*this)[VY] /= temp;
-	(*this)[VZ] /= temp;
+	for (int i = 0; i < 4; i++)
+		result[i] = (*this)[i] / temp;
+	return result;
 }
 
 void Quaternion::rotate(Quaternion* in)
@@ -95,19 +108,13 @@ void Quaternion::rotate(Quaternion* in)
 	*this = (*in) * (*this) * (*in).conj();
 }
 
-Quaternion operator+(Quaternion left, Quaternion right)
+void Quaternion::rotate(Vector<double, 3>* in)
 {
-	return Quaternion(&(left.elements+right.elements));
-}
-
-Quaternion operator*(Quaternion left, Quaternion right)
-{
-	Quaternion temp;
-	temp[W] = (left[W] * right[W]) - (left[VX] * right[VX]) - (left[VY] * right[VY]) - (left[VZ] * right[VZ]);
-	temp[VX] = left[VY] * right[VZ] - left[VZ] * right[VY] + right[VX] * left[W] + left[VX] * right[W];
-	temp[VY] = (left[VX] * right[VZ] - left[VZ] * right[VX])*-1.0 + right[VY] * left[W] + left[VY] * right[W];
-	temp[VZ] = left[VX] * right[VY] - left[VY] * right[VX] + right[VZ] * left[W] + left[VZ] * right[W];
-	return temp;
+	Quaternion pitch(cos((*in)[X] / 2.0), sin((*in)[X] / 2.0),0,0);
+	Quaternion yaw(cos((*in)[X] / 2.0), 0, sin((*in)[X] / 2.0), 0);
+	Quaternion roll(cos((*in)[X] / 2.0), 0, 0, sin((*in)[X] / 2.0));
+	Quaternion temp = pitch*yaw*roll;
+	this->rotate(&temp);
 }
 
 double &Quaternion::operator[](const int& pos)

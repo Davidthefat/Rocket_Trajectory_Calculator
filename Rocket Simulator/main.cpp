@@ -5,16 +5,15 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Quaternion test(0.0, 0.0, M_PI/4.0);
-	Quaternion test2(M_PI/2.0, 0.0, 0.0);
-	Vector<double, 3> Euler = test.toEuler();
+	Quaternion Pitch(50,0,0);
+	Quaternion Test(0, 2, 0, 0);
+	Test.rotate(&Pitch.toEuler());
+	Vector<double, 3> Euler = Test.toEuler();
 	for (int i = 0; i < 3; i++)
-		cout << Euler[i] * 180.0 / M_PI << ", ";
+		cout << Euler[i] * 180.0/M_PI << "\t";
 	cout << endl;
-	test.rotate(&test2);
-	Euler = test.toEuler();
-	for (int i = 0; i < 3; i++)
-		cout << Euler[i]*180.0/M_PI << ", ";
+	for (int i = 0; i < 4; i++)
+		cout << Test[i] << "\t";
 	cout << endl;
 	return 0;
 }
