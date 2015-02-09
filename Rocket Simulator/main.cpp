@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Quaternion Pitch(50,0,0);
+	Quaternion Pitch(45,0,0);
 	Quaternion Test(0, 2, 0, 0);
 	Test.rotate(&Pitch.toEuler());
 	Vector<double, 3> Euler = Test.toEuler();

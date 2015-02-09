@@ -110,7 +110,7 @@ void Quaternion::rotate(Quaternion* in)
 
 void Quaternion::rotate(Vector<double, 3>* in)
 {
-	Quaternion pitch(cos((*in)[X] / 2.0), sin((*in)[X] / 2.0),0,0);
+	Quaternion pitch(cos((*in)[X] / 2.0), sin((*in)[X] / 2.0), 0, 0);
 	Quaternion yaw(cos((*in)[X] / 2.0), 0, sin((*in)[X] / 2.0), 0);
 	Quaternion roll(cos((*in)[X] / 2.0), 0, 0, sin((*in)[X] / 2.0));
 	Quaternion temp = pitch*yaw*roll;
