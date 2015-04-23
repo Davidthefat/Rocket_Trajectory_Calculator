@@ -9,6 +9,7 @@
 #define AREA_THROAT getAttribute(AreaThroat)
 #define AREA_RATIO getAttribute(NozzleAreaRatio)
 #define THRUST getAttribute(Thrust)
+#define BURNOUT getAttribute(Burnout)
 #define DRAG getAttribute(Drag)
 #define CD getAttribute(Cd)
 
@@ -21,6 +22,7 @@ enum value_t{
 	NozzleAreaRatio,// Unitless
 	Drag,			// lbf
 	Thrust,			// lbf
+	Burnout,
 	Cd,				// Unitless
 	Cg,				// ft; from nose
 	Cp				// ft; from nose
@@ -33,7 +35,7 @@ private:
 	Vec3D *Velocity;
 	Vec3D *Acceleration;
 	Vec3D *Attitude;		//0 X; 1 Y; 2 Z
-	double Attributes[10];
+	double Attributes[11];
 public:
 	Vehicle();
 	Vehicle(double, double, double, double);

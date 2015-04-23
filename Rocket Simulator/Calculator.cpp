@@ -27,6 +27,8 @@ void Calculator::calcWeight(double dT)
 {
 	if (Target->WEIGHT - Target->WEIGHT_RATE > Target->WEIGHT_EMPTY)
 		Target->setAttribute(Weight, Target->WEIGHT - Target->WEIGHT_RATE);
+	else
+		Target->setAttribute(Burnout, 1.0);
 }
 
 void Calculator::calcCoefDrag()
@@ -39,6 +41,8 @@ void Calculator::calcDrag()
 	double V = Target->getVelocity().abs();
 	calcCoefDrag();
 	double drag = 0.5*Target->CROSS_SECTION*Target->CD*RHO_SL*V*V;
+	if (Target->getVelocity()[Y] < 0.0)
+		drag *= -1.0;
 	Target->setAttribute(Drag, drag);
 }
 
@@ -120,7 +124,10 @@ void Calculator::calcPosition(double dT)
 
 void Calculator::update(double dT)
 {
-	calcAcceleration(300.0, calcPressureAltitude(), 1000.0, dT);
+	double Pc = 1000.0;
+	if (Target->BURNOUT != 0.0)
+		Pc = 0.0;
+	calcAcceleration(Pc, calcPressureAltitude(), 1000.0, dT);
 	calcVelocity(dT);
 	calcPosition(dT);
 	Target->setAcceleration(*AccelerationBuf);

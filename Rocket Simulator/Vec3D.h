@@ -11,7 +11,7 @@ private:
 public:
 	Vec3D();
 	Vec3D(Vector<double, 3>*);
-	~Vec3D();
+	Vec3D(double, double, double);
 	double abs();
 	Vec3D &operator=(const Vec3D&);
 	double &operator[](const int&);

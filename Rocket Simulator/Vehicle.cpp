@@ -13,7 +13,7 @@ Vehicle::Vehicle()
 	Attributes[AreaThroat] = 0.25;
 	Attributes[NozzleAreaRatio] = 6.0;
 	Attributes[CrossSection] = 1.0;
-	Attributes[WeightRate] = Attributes[Thrust] = Attributes[Drag] = 0.0;
+	Attributes[WeightRate] = Attributes[Thrust] = Attributes[Drag] = Attributes[Burnout] = 0.0;
 }
 
 Vehicle::Vehicle(double wght, double wghtEmpty, double areaThroat, double areaRatio)
@@ -28,7 +28,7 @@ Vehicle::Vehicle(double wght, double wghtEmpty, double areaThroat, double areaRa
 	Attributes[AreaThroat] = areaThroat;
 	Attributes[NozzleAreaRatio] = areaRatio;
 	Attributes[CrossSection] = 1.0;
-	Attributes[WeightRate] = Attributes[Thrust] = Attributes[Drag] = 0.0;
+	Attributes[WeightRate] = Attributes[Thrust] = Attributes[Drag] = Attributes[Burnout] = 0.0;
 }
 
 
