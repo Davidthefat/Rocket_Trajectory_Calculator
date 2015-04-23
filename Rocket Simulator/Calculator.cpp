@@ -124,7 +124,7 @@ void Calculator::calcPosition(double dT)
 
 void Calculator::update(double dT)
 {
-	double Pc = 1000.0;
+	double Pc = 1500.0;
 	if (Target->BURNOUT != 0.0)
 		Pc = 0.0;
 	calcAcceleration(Pc, calcPressureAltitude(), 1000.0, dT);

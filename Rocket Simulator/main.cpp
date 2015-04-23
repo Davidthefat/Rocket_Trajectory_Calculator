@@ -5,7 +5,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Vehicle rocket(220.0, 34.0, 0.5, 2.0);
+	Vehicle rocket(1000.5, 4.0, 0.5, 45.0);
 	Calculator calc(&rocket);
 	for (int i = 0; rocket.getPosition()[Y] >= 0.0; i++)
 	{
