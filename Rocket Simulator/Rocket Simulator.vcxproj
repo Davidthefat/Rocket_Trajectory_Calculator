@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="Euler.cpp" />
     <ClCompile Include="KalmanFilter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Quaternion.cpp" />
@@ -75,6 +76,7 @@
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="Euler.h" />
     <ClInclude Include="KalmanFilter.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector.h" />

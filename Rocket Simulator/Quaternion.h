@@ -1,11 +1,11 @@
 #pragma once
 #include "Vector.h"
 #include "Vector.cpp"
+#include "Euler.h"
 
-enum comp{W, VX, VY, VZ};
+enum comp{ W, VX, VY, VZ };
 
-class Quaternion :
-	public Vector<double, 4>
+class Quaternion
 {
 private:
 	Vector<double, 4> elements;
@@ -14,12 +14,12 @@ public:
 	Quaternion(double, double, double, double);
 	Quaternion(double, double, double);//From Euler Angles; Pitch, Yaw, Roll
 	Quaternion(Vector<double, 4>*);
-	Quaternion(Vector<double, 3>*); // From Euler Angles
+	Quaternion(Euler*); // From Euler Angles
 	Quaternion conj();
-	Vector<double, 3> toEuler();
+	Euler toEuler();
 	Quaternion norm();
-	void rotate(Quaternion*);
-	void rotate(Vector<double, 3>*);//Euler Angle Rotation
+	Vector<double, 3> vector();
+	void rotate(Vector<double, 3>*);
 	double &operator[](const int&);
 	friend Quaternion operator+(Quaternion, Quaternion);
 	friend Quaternion operator*(Quaternion, Quaternion);

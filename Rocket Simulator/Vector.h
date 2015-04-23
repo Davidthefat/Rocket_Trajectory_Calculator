@@ -2,8 +2,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <array>
-
-enum coord{X, Y, Z};
+#define toDeg(rad) (rad * 180.0 / M_PI)
+#define toRad(deg) (deg * M_PI / 180)
 
 template <class T, std::size_t N >
 class Vector;

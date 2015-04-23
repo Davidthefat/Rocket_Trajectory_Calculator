@@ -2,6 +2,8 @@
 #include "Vector.h"
 #include "Vector.cpp"
 
+enum coord{ X, Y, Z };
+
 #define WEIGHT getAttribute(Weight)
 #define WEIGHT_RATE getAttribute(WeightRate)
 #define WEIGHT_EMPTY getAttribute(WeightEmpty)

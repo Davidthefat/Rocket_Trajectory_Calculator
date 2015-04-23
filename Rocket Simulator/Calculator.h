@@ -21,12 +21,19 @@ private:
 	Vehicle *Target;
 	Environment *Env;
 	KalmanFilter *Filter;
+	//Temporary Vehicle statistics
+	Vector<double, 3> *PositionBuf;
+	Vector<double, 3> *VelocityBuf;
+	Vector<double, 3> *AccelerationBuf;
+	Vector<double, 3> *AttitudeBuf;		//0 Pitch; 1 Yaw; 2 Roll; Radians
+
 	double AirDensity;
 	double ExhaustMach;
 	double ExitPressure;
 	double PressureAltitude;
 	double BaseAltitude;
 	void calcLocalAirDensity();
+	void calcCoefDrag();
 	void calcDrag();
 	void calcThrust(double, double, double);
 	void calcWeightRate(double, double);

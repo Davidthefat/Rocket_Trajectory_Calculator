@@ -6,6 +6,10 @@ Calculator::Calculator(Vehicle *in)
 	Target = in;
 	Filter = new KalmanFilter(1.0, 1.0, 1.0, 1.0);
 	Env = new Environment();
+	PositionBuf = new Vector<double, 3>();
+	VelocityBuf = new Vector<double, 3>();
+	AccelerationBuf = new Vector<double, 3>();
+	AttitudeBuf = new Vector<double, 3>();
 }
 
 Calculator::~Calculator()
@@ -13,6 +17,10 @@ Calculator::~Calculator()
 	Target = nullptr; //Original Vehicle object is preserved; must be freed independently.
 	delete Filter;
 	delete Env;
+	delete PositionBuf;
+	delete VelocityBuf;
+	delete AccelerationBuf;
+	delete AttitudeBuf;
 }
 
 void Calculator::calcWeight(double dT)
@@ -21,9 +29,15 @@ void Calculator::calcWeight(double dT)
 		Target->setAttribute(Weight, Target->WEIGHT - Target->WEIGHT_RATE);
 }
 
+void Calculator::calcCoefDrag()
+{
+
+}
+
 void Calculator::calcDrag()
 {
 	double V = Target->getVelocity()[Z];
+	calcCoefDrag();
 	double drag = 0.5*Target->CROSS_SECTION*Target->CD*RHO_SL*V*V;
 	Target->setAttribute(Drag, drag);
 }
@@ -87,22 +101,16 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 	calcWeight(dT);
 	calcDrag();
 	double TempAcc = Target->THRUST - Target->DRAG - Target->WEIGHT;
-	Vector<double, 3> temp;
-	temp[X] = 0.0;
-	temp[Y] = 0.0;
-	temp[Z] = TempAcc;
-	Target->setAcceleration(temp);
+	
 }
 
 void Calculator::calcVelocity(double dT)
 {
-	Vector<double, 3> temp = Target->getVelocity() + (Target->getAcceleration()*dT);
-	Target->setVelocity(temp);
+	*VelocityBuf = Target->getVelocity() + (Target->getAcceleration()*dT);
 }
 
 void Calculator::calcPosition(double dT)
 {
-	Vector<double, 3> temp = Target->getPosition() + (Target->getVelocity()*dT);
-	Target->setPosition(temp);
+	*PositionBuf = Target->getPosition() + (Target->getVelocity()*dT);
 }
 
