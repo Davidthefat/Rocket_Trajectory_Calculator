@@ -19,7 +19,7 @@ Quaternion::Quaternion(double w, double x, double y, double z)
 	elements[VY] = y;
 	elements[VZ] = z;
 }
-/*
+
 Quaternion::Quaternion(double p, double y, double r)
 {
 	double c1 = cos(y / 2.0);
@@ -35,21 +35,16 @@ Quaternion::Quaternion(double p, double y, double r)
 	elements[VY] = s1*c2*c3 + c1*s2*s3;
 	elements[VZ] = c1*s2*c3 - s1*c2*s3;
 }
-*/
 
-Quaternion::Quaternion(double p, double y, double r)
-{
-	double c1 = cos(r / 2.0);
-	double s1 = sin(r / 2.0);
-	double c2 = cos(p / 2.0);
-	double s2 = sin(p / 2.0);
-	double c3 = cos(y / 2.0);
-	double s3 = sin(y / 2.0);
-	elements[W] = c1*c2*c3 + s1*s2*s3;
-	elements[VX] = s1*c2*c3 - c1*s2*s3;
-	elements[VY] = c1*s2*c3 + s1*c2*s3;
-	elements[VZ] = c1*c2*s3 - s1*s2*c3;
-}
+
+//Quaternion::Quaternion(double p, double y, double r)
+//{
+//	Quaternion pitch(cos(p / 2.0), 0.0, sin(p / 2.0), 0.0);
+//	Quaternion yaw(cos(y / 2.0), 0.0, 0.0, sin(y / 2.0));
+//	Quaternion roll(cos(r / 2.0), sin(r / 2.0), 0.0, 0.0);
+//	Quaternion result = yaw*pitch*roll;
+//	elements = result.elements;
+//}
 
 Quaternion::Quaternion(Euler* in)
 {
@@ -64,6 +59,7 @@ Quaternion::Quaternion(Euler* in)
 	elements[VY] = c1*s2*c3 + s1*c2*s3;
 	elements[VZ] = c1*c2*s3 - s1*s2*c3;
 }
+
 
 Quaternion Quaternion::conj()
 {
