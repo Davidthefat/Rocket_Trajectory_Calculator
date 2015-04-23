@@ -1,8 +1,6 @@
 #pragma once
-#include "Vector.h"
-#include "Vector.cpp"
+#include "Quaternion.h"
 
-enum coord{ X, Y, Z };
 
 #define WEIGHT getAttribute(Weight)
 #define WEIGHT_RATE getAttribute(WeightRate)
@@ -31,27 +29,27 @@ enum value_t{
 class Vehicle
 {
 private:
-	Vector<double, 3> *Position;
-	Vector<double, 3> *Velocity;
-	Vector<double, 3> *Acceleration;
-	Vector<double, 3> *Attitude;		//0 Pitch; 1 Yaw; 2 Roll; Radians
+	Vec3D *Position;
+	Vec3D *Velocity;
+	Vec3D *Acceleration;
+	Vec3D *Attitude;		//0 X; 1 Y; 2 Z
 	double Attributes[10];
 public:
 	Vehicle();
 	Vehicle(double, double, double, double);
 	~Vehicle();
-	Vector<double, 3> getPosition();
-	Vector<double, 3> getVelocity();
-	Vector<double, 3> getAcceleration();
-	Vector<double, 3> getAttitude();
+	Vec3D getPosition();
+	Vec3D getVelocity();
+	Vec3D getAcceleration();
+	Vec3D getAttitude();
 	double getPosition(int);
 	double getVelocity(int);
 	double getAcceleration(int);
 	double getAttitude(int);
 	double getAttribute(int);
 	void setAttribute(int, double);
-	void setPosition(Vector<double, 3>);
-	void setVelocity(Vector<double, 3>);
-	void setAcceleration(Vector<double, 3>);
+	void setPosition(Vec3D);
+	void setVelocity(Vec3D);
+	void setAcceleration(Vec3D);
 };
 

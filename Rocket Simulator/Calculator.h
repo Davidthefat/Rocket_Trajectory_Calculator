@@ -22,16 +22,15 @@ private:
 	Environment *Env;
 	KalmanFilter *Filter;
 	//Temporary Vehicle statistics
-	Vector<double, 3> *PositionBuf;
-	Vector<double, 3> *VelocityBuf;
-	Vector<double, 3> *AccelerationBuf;
-	Vector<double, 3> *AttitudeBuf;		//0 Pitch; 1 Yaw; 2 Roll; Radians
+	Vec3D *PositionBuf;
+	Vec3D *VelocityBuf;
+	Vec3D *AccelerationBuf;
+	Vec3D *AttitudeBuf;		//0 Pitch; 1 Yaw; 2 Roll; Radians
 
 	double AirDensity;
 	double ExhaustMach;
 	double ExitPressure;
-	double PressureAltitude;
-	double BaseAltitude;
+	double calcPressureAltitude();
 	void calcLocalAirDensity();
 	void calcCoefDrag();
 	void calcDrag();
@@ -40,11 +39,11 @@ private:
 	void calcWeight(double);
 	void calcExitPressure(double);
 	void calcExhaustMach();
-	void calcPressureAltitude(double);
-public:
-	Calculator(Vehicle *);
-	~Calculator();
 	void calcAcceleration(double, double, double, double);
 	void calcVelocity(double);
 	void calcPosition(double);
+public:
+	Calculator(Vehicle *);
+	~Calculator();
+	void update(double);
 };

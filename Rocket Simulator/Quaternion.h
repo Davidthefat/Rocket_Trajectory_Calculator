@@ -1,6 +1,5 @@
 #pragma once
-#include "Vector.h"
-#include "Vector.cpp"
+#include "Vec3D.h"
 #include "Euler.h"
 
 enum comp{ W, VX, VY, VZ };
@@ -18,8 +17,8 @@ public:
 	Quaternion conj();
 	Euler toEuler();
 	Quaternion norm();
-	Vector<double, 3> vector();
-	void rotate(Vector<double, 3>*);
+	Vec3D vector();
+	void rotate(Vec3D*);
 	double &operator[](const int&);
 	friend Quaternion operator+(Quaternion, Quaternion);
 	friend Quaternion operator*(Quaternion, Quaternion);

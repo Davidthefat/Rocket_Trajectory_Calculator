@@ -1,18 +1,17 @@
 #pragma once
-#include "Vector.h"
-#include "Vector.cpp"
+#include "Vec3D.h"
 
-enum angle{ P, Y, R };
+enum angle{ Pitch, Yaw, Roll };
 
 class Euler
 {
 private:
-	Vector<double, 3> Angles;
+	Vec3D Angles;
 public:
 	Euler();
 	Euler(double, double, double);
 	~Euler();
-	/*void rotate(Vector<double, 3>*);*/
+	/*void rotate(Vec3D*);*/
 	double &operator[](const int&);
 };
 

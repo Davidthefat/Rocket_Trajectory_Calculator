@@ -6,10 +6,10 @@ Calculator::Calculator(Vehicle *in)
 	Target = in;
 	Filter = new KalmanFilter(1.0, 1.0, 1.0, 1.0);
 	Env = new Environment();
-	PositionBuf = new Vector<double, 3>();
-	VelocityBuf = new Vector<double, 3>();
-	AccelerationBuf = new Vector<double, 3>();
-	AttitudeBuf = new Vector<double, 3>();
+	PositionBuf = new Vec3D();
+	VelocityBuf = new Vec3D();
+	AccelerationBuf = new Vec3D();
+	AttitudeBuf = new Vec3D();
 }
 
 Calculator::~Calculator()
@@ -31,12 +31,12 @@ void Calculator::calcWeight(double dT)
 
 void Calculator::calcCoefDrag()
 {
-
+	Target->setAttribute(Cd, 1.0);
 }
 
 void Calculator::calcDrag()
 {
-	double V = Target->getVelocity()[Z];
+	double V = Target->getVelocity().abs();
 	calcCoefDrag();
 	double drag = 0.5*Target->CROSS_SECTION*Target->CD*RHO_SL*V*V;
 	Target->setAttribute(Drag, drag);
@@ -44,6 +44,7 @@ void Calculator::calcDrag()
 
 void Calculator::calcExhaustMach()
 {
+	ExhaustMach = 1.0;
 	double AR = Target->AREA_RATIO;
 	auto AreaRatio = [](double mach){
 		return pow(GAM_C, -0.5*(GAM_E)*pow((1.0 + ((GAM - 1.0)*mach*mach) / 2.0), 0.5*GAM_E))/mach; 
@@ -51,13 +52,14 @@ void Calculator::calcExhaustMach()
 	double E = AreaRatio(ExhaustMach) - AR;
 	while (E > TOLERANCE || E < -TOLERANCE)
 		if (E > TOLERANCE)
-			E = AreaRatio(ExhaustMach -= ExhaustMach / 2.0) - AR;
-		else if (E < -TOLERANCE)
 			E = AreaRatio(ExhaustMach += ExhaustMach / 2.0) - AR;
+		else if (E < -TOLERANCE)
+			E = AreaRatio(ExhaustMach -= ExhaustMach / 2.0) - AR;
 }
 
 void Calculator::calcExitPressure(double Pc)
 {
+	ExitPressure = Env->getPressure();
 	double AR = Target->AREA_RATIO;
 	auto AreaRatio = [Pc](double ePressure){
 		return pow(GAM_L, 1.0 / (GAM - 1.0))*pow(Pc / ePressure, 1.0 / GAM) / sqrt(GAM_E * (1.0 - pow(ePressure / Pc, (GAM - 1.0) / GAM))); 
@@ -70,9 +72,10 @@ void Calculator::calcExitPressure(double Pc)
 			E = AreaRatio(ExitPressure -= ExitPressure / 2.0) - AR;
 }
 
-void Calculator::calcPressureAltitude(double Pa)
+double Calculator::calcPressureAltitude()
 {
-	PressureAltitude = (1 - pow((Env->getPressure()*68.95 / 1013.25), 0.190284))*145366.45 - BaseAltitude;
+	//return (1 - pow((Env->getPressure()*68.95 / 1013.25), 0.190284))*145366.45 - Env->getBaseAlt();
+	return 14.7;
 }
 
 void Calculator::calcWeightRate(double Pc, double Tc)
@@ -99,9 +102,10 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 	calcExitPressure(Pc);
 	calcWeightRate(Pc, Tc);
 	calcWeight(dT);
+	calcThrust(Pc, Pa, Tc);
 	calcDrag();
 	double TempAcc = Target->THRUST - Target->DRAG - Target->WEIGHT;
-	
+	*AccelerationBuf = Target->getAttitude() * TempAcc;
 }
 
 void Calculator::calcVelocity(double dT)
@@ -114,3 +118,12 @@ void Calculator::calcPosition(double dT)
 	*PositionBuf = Target->getPosition() + (Target->getVelocity()*dT);
 }
 
+void Calculator::update(double dT)
+{
+	calcAcceleration(300.0, calcPressureAltitude(), 1000.0, dT);
+	calcVelocity(dT);
+	calcPosition(dT);
+	Target->setAcceleration(*AccelerationBuf);
+	Target->setVelocity(*VelocityBuf);
+	Target->setPosition(*PositionBuf);
+}
