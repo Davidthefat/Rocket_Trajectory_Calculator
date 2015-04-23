@@ -150,8 +150,6 @@ void Quaternion::rotate(Vector<double, 3>* in)
 }
 
 
-
-
 double &Quaternion::operator[](const int& pos)
 {
 	return this->elements[pos];
