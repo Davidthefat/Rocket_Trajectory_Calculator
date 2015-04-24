@@ -45,5 +45,5 @@ private:
 public:
 	Calculator(Vehicle *);
 	~Calculator();
-	void update(double);
+	void update(double, double);
 };
