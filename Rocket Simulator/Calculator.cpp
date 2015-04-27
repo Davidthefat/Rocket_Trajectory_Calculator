@@ -34,6 +34,7 @@ void Calculator::calcWeight(double dT)
 void Calculator::calcCoefDrag()
 {
 	Target->setAttribute(Cd, 0.02);
+
 }
 
 void Calculator::calcDrag()
@@ -63,7 +64,7 @@ void Calculator::calcExhaustMach()
 
 void Calculator::calcExitPressure(double Pc)
 {
-	ExitPressure = Env->getPressure();
+	ExitPressure = Env->getPressure(Target->getPosition()[Y]);
 	double AR = Target->AREA_RATIO;
 	auto AreaRatio = [Pc](double ePressure){
 		return pow(GAM_L, 1.0 / (GAM - 1.0))*pow(Pc / ePressure, 1.0 / GAM) / sqrt(GAM_E * (1.0 - pow(ePressure / Pc, (GAM - 1.0) / GAM))); 
