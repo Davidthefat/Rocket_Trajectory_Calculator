@@ -13,6 +13,7 @@ const double CRITICAL_PRESSURE = 109.5;
 #define GAM_R (GAM-1.0)/GAM
 #define GAM_L 2.0/(GAM+1.0)
 #define GAM_C (GAM+1.0)/2.0
+#define SQRT_PI 1.77245385090551602729816748
 
 class Calculator
 {
@@ -41,6 +42,8 @@ private:
 	void calcAcceleration(double, double, double, double);
 	void calcVelocity(double);
 	void calcPosition(double);
+	void calcVelocityPotential(void (*)(double, double, double));
+	double vonKarman(double, double, double);
 public:
 	Calculator(Vehicle *);
 	~Calculator();

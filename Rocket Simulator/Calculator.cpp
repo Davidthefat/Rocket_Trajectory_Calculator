@@ -134,3 +134,12 @@ void Calculator::update(double Pc, double dT)
 	Target->setVelocity(*VelocityBuf);
 	Target->setPosition(*PositionBuf);
 }
+double Calculator::vonKarman(double x, double L, double rMax)
+{
+	double theta = acos(1.0 - (2.0 * x) / L);
+	return (rMax / SQRT_PI) * sqrt(theta - sin(2.0*theta)/2.0);
+}
+void Calculator::calcVelocityPotential(void(*)(double, double, double))
+{
+
+}
