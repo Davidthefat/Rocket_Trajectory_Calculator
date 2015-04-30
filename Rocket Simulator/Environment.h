@@ -18,6 +18,6 @@ public:
 	double getTemperature(double);
 	double getDensity(double);
 	double getBaseAlt();
-	double getLocalAirSpeed();
+	double getLocalAirSpeed(double);
 };
 

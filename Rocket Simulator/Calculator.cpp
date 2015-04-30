@@ -33,9 +33,9 @@ void Calculator::calcWeight(double dT)
 
 void Calculator::calcCoefDrag()
 {
-	if (Target->getVelocity().abs() / Env->getLocalAirSpeed()>1.0)
+	if (mach()>0.7)
 		Target->setAttribute(Cd, cD());
-	Target->setAttribute(Cd, 0.02);
+	Target->setAttribute(Cd, 0.015);
 }
 
 void Calculator::calcDrag()
@@ -76,12 +76,6 @@ void Calculator::calcExitPressure(double Pc)
 			E = AreaRatio(ExitPressure += ExitPressure / 2.0) - AR;
 		else if (E < -TOLERANCE)
 			E = AreaRatio(ExitPressure -= ExitPressure / 2.0) - AR;
-}
-
-double Calculator::calcPressureAltitude()
-{
-	//return (1 - pow((Env->getPressure()*68.95 / 1013.25), 0.190284))*145366.45 - Env->getBaseAlt();
-	return 14.7;
 }
 
 void Calculator::calcWeightRate(double Pc, double Tc)
@@ -128,7 +122,7 @@ void Calculator::update(double Pc, double dT)
 {
 	if (Target->BURNOUT != 0.0)
 		Pc = 0.0;
-	calcAcceleration(Pc, calcPressureAltitude(), 1000.0, dT);
+	calcAcceleration(Pc, Env->getPressure(Target->getPosition()[Y]), 1000.0, dT);
 	calcVelocity(dT);
 	calcPosition(dT);
 	Target->setAcceleration(*AccelerationBuf);
@@ -137,7 +131,7 @@ void Calculator::update(double Pc, double dT)
 }
 double Calculator::beta()
 {
-	return pow(Target->getVelocity().abs() / Env->getLocalAirSpeed(),2)-1.0;
+	return pow(Target->getVelocity().abs() / Env->getLocalAirSpeed(Target->getPosition()[Y]), 2) - 1.0;
 }
 double Calculator::vonKarman(double x, double L, double rMax)
 {
@@ -178,10 +172,19 @@ double Calculator::cD()
 {
 	double cD = 0.0;
 	double slope = 0.0;
+	double rh = Env->getDensity(Target->getPosition()[Y]);
+	double p = Env->getPressure(Target->getPosition()[Y]);
+	double V = Target->getVelocity().abs();
+	double area = 0.0;
 	for (int i = 0; i < 1000; i++)
 	{
 		slope = vonKarmanPrime(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER);
-		cD += 1.0 / sqrt(slope*slope + 1.0)*cP(i*(Target->NOSE_LENGTH / 1000.0));
+		area = pow(vonKarman(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER), 2) * M_PI;
+		cD += (1.0 / sqrt(slope*slope + 1.0)*(cP(i*(Target->NOSE_LENGTH / 1000.0))*2.0*rh*V*V + p))/2.0*rh*V*V;
 	}
 	return cD;
+}
+double Calculator::mach()
+{
+	return Target->getVelocity().abs() / Env->getLocalAirSpeed(Target->getPosition()[Y]);
 }

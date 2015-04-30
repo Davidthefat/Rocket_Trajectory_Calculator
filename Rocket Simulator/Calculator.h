@@ -30,7 +30,6 @@ private:
 	double AirDensity;
 	double ExhaustMach;
 	double ExitPressure;
-	double calcPressureAltitude();
 	double beta();
 	double calcVelocityPotential(double);
 	double vonKarman(double, double, double);
@@ -52,4 +51,5 @@ public:
 	Calculator(Vehicle *);
 	~Calculator();
 	void update(double, double);
+	double mach();
 };
