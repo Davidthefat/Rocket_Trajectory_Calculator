@@ -1,7 +1,9 @@
 #pragma once
 #include "Quaternion.h"
 
-
+#define LENGTH getAttribute(BodyLength)
+#define DIAMETER getAttribute(Diameter)
+#define NOSE_LENGTH getAttribute(NoseLength)
 #define WEIGHT getAttribute(Weight)
 #define WEIGHT_RATE getAttribute(WeightRate)
 #define WEIGHT_EMPTY getAttribute(WeightEmpty)
@@ -14,6 +16,9 @@
 #define CD getAttribute(Cd)
 
 enum value_t{
+	BodyLength,		// in
+	NoseLength,		// in
+	Diameter,		// in
 	Weight,			// lbf
 	WeightRate,		// lbf/s
 	WeightEmpty,	// lbf
@@ -35,7 +40,7 @@ private:
 	Vec3D *Velocity;
 	Vec3D *Acceleration;
 	Vec3D *Attitude;		//0 X; 1 Y; 2 Z
-	double Attributes[11];
+	double Attributes[14];
 public:
 	Vehicle();
 	Vehicle(double, double, double, double);

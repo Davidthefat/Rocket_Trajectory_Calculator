@@ -9,6 +9,8 @@ Vehicle::Vehicle()
 	Attitude = new Vec3D();
 	(*Attitude)[Y] = 1.0;
 	Attributes[Weight] = 100.0;
+	Attributes[BodyLength] = 114.0;
+	Attributes[NoseLength] = 32.0;
 	Attributes[WeightEmpty] = 13.0;
 	Attributes[AreaThroat] = 0.25;
 	Attributes[NozzleAreaRatio] = 6.0;
@@ -25,6 +27,8 @@ Vehicle::Vehicle(double wght, double wghtEmpty, double areaThroat, double areaRa
 	(*Attitude)[Y] = 1.0;
 	Attributes[Weight] = wght;
 	Attributes[WeightEmpty] = wghtEmpty;
+	Attributes[BodyLength] = 114.0;
+	Attributes[NoseLength] = 32.0;
 	Attributes[AreaThroat] = areaThroat;
 	Attributes[NozzleAreaRatio] = areaRatio;
 	Attributes[CrossSection] = 0.1;

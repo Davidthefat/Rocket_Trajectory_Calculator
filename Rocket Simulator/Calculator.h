@@ -31,6 +31,12 @@ private:
 	double ExhaustMach;
 	double ExitPressure;
 	double calcPressureAltitude();
+	double beta();
+	double calcVelocityPotential(double);
+	double vonKarman(double, double, double);
+	double vonKarmanPrime(double, double, double);
+	double cP(double);
+	double cD();
 	void calcLocalAirDensity();
 	void calcCoefDrag();
 	void calcDrag();
@@ -42,8 +48,6 @@ private:
 	void calcAcceleration(double, double, double, double);
 	void calcVelocity(double);
 	void calcPosition(double);
-	void calcVelocityPotential(void (*)(double, double, double));
-	double vonKarman(double, double, double);
 public:
 	Calculator(Vehicle *);
 	~Calculator();

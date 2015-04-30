@@ -33,8 +33,9 @@ void Calculator::calcWeight(double dT)
 
 void Calculator::calcCoefDrag()
 {
+	if (Target->getVelocity().abs() / Env->getLocalAirSpeed()>1.0)
+		Target->setAttribute(Cd, cD());
 	Target->setAttribute(Cd, 0.02);
-
 }
 
 void Calculator::calcDrag()
@@ -115,12 +116,12 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 
 void Calculator::calcVelocity(double dT)
 {
-	*VelocityBuf = Target->getVelocity() + (Target->getAcceleration()*dT);
+	*VelocityBuf = Target->getVelocity() + ((Target->getAcceleration()*dT)+(*AccelerationBuf*dT))*0.5;
 }
 
 void Calculator::calcPosition(double dT)
 {
-	*PositionBuf = Target->getPosition() + (Target->getVelocity()*dT);
+	*PositionBuf = Target->getPosition() + ((Target->getVelocity()*dT)+(*VelocityBuf*dT))*0.5;
 }
 
 void Calculator::update(double Pc, double dT)
@@ -134,12 +135,53 @@ void Calculator::update(double Pc, double dT)
 	Target->setVelocity(*VelocityBuf);
 	Target->setPosition(*PositionBuf);
 }
+double Calculator::beta()
+{
+	return pow(Target->getVelocity().abs() / Env->getLocalAirSpeed(),2)-1.0;
+}
 double Calculator::vonKarman(double x, double L, double rMax)
 {
 	double theta = acos(1.0 - (2.0 * x) / L);
 	return (rMax / SQRT_PI) * sqrt(theta - sin(2.0*theta)/2.0);
 }
-void Calculator::calcVelocityPotential(void(*)(double, double, double))
+double Calculator::vonKarmanPrime(double x, double L, double rMax)
 {
-
+	double pos = 1.0 - 2.0 * x / L;
+	double ac = acos(pos);
+	return (rMax / SQRT_PI) * ((2 - 2 * cos(2 * ac)) / (L*sqrt(1 - ac*ac))*sqrt(ac - 0.5*sin(2 * ac)));
+}
+double Calculator::calcVelocityPotential(double x)
+{
+	double velPot = 0.0;
+	double r = vonKarman(x, Target->NOSE_LENGTH, Target->DIAMETER);
+	double b = beta();
+	double temp = (M_PI*vonKarman(0.0, Target->NOSE_LENGTH, Target->DIAMETER)*vonKarmanPrime(0.0, Target->NOSE_LENGTH, Target->DIAMETER)*2.0) / sqrt(x*x + b*r*r);
+	double curr = 0.0;
+	for (int i = 1; i < 1000; i++)
+	{
+		curr = (M_PI*vonKarman(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER)*vonKarmanPrime(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER)*2.0) / sqrt(x*x + b*r*r);
+		velPot += (temp + curr) / 2.0;
+		temp = curr;
+	}
+	return velPot/(-4.0*M_PI);
+}
+double Calculator::cP(double x)
+{
+	double dX = 0.000001;
+	double vK = vonKarman(x, Target->NOSE_LENGTH, Target->DIAMETER);
+	double velPot = calcVelocityPotential(x) - calcVelocityPotential(x + dX);
+	double velPotX = (velPot) / dX;
+	double velPotR = (velPot) / (vK - vonKarman(x + dX, Target->NOSE_LENGTH, Target->DIAMETER));
+	return -2.0 * velPotX - velPotR*velPotR;
+}
+double Calculator::cD()
+{
+	double cD = 0.0;
+	double slope = 0.0;
+	for (int i = 0; i < 1000; i++)
+	{
+		slope = vonKarmanPrime(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER);
+		cD += 1.0 / sqrt(slope*slope + 1.0)*cP(i*(Target->NOSE_LENGTH / 1000.0));
+	}
+	return cD;
 }
