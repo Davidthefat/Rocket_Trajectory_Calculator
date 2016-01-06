@@ -38,7 +38,7 @@ void Calculator::calcCoefDrag()
 		Target->setAttribute(Cd, cD());
     else
      */
-        Target->setAttribute(Cd, 0.010);
+        Target->setAttribute(Cd, 0.01);
 }
 
 void Calculator::calcDrag()
@@ -107,7 +107,7 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 	calcWeight(dT);
 	calcThrust(Pc, Pa, Tc);
 	calcDrag();
-	Vec3D TempAcc(0 ,Target->THRUST - Target->DRAG - Target->WEIGHT, 0);
+	Vec3D TempAcc(0 ,((Target->THRUST - Target->DRAG)/(Target->WEIGHT/G) - G), 0);
 	*AccelerationBuf = TempAcc;
 }
 
@@ -139,13 +139,15 @@ double Calculator::beta()
 double Calculator::vonKarman(double x, double L, double rMax)
 {
 	double theta = acos(1.0 - (2.0 * x) / L);
-	return (rMax / SQRT_PI) * sqrt(theta - sin(2.0*theta)/2.0);
+	double y = (rMax / SQRT_PI) * sqrt(theta - sin(2.0*theta)/2.0);
+    return y;
 }
 double Calculator::vonKarmanPrime(double x, double L, double rMax)
 {
 	double pos = 1.0 - 2.0 * x / L;
 	double ac = acos(pos);
-	return (rMax / SQRT_PI) * ((2 - 2 * cos(2 * ac)) / (L*sqrt(1 - ac*ac))*sqrt(ac - 0.5*sin(2 * ac)));
+	double yp = (rMax / SQRT_PI) * ((2 - 2 * cos(2 * ac)) / (L*sqrt(1 - ac*ac))*sqrt(ac - 0.5*sin(2 * ac)));
+    return yp;
 }
 double Calculator::calcVelocityPotential(double x)
 {
@@ -154,9 +156,10 @@ double Calculator::calcVelocityPotential(double x)
 	double b = beta();
 	double temp = (M_PI*vonKarman(0.0, Target->NOSE_LENGTH, Target->DIAMETER)*vonKarmanPrime(0.0, Target->NOSE_LENGTH, Target->DIAMETER)*2.0) / sqrt(x*x + b*r*r);
 	double curr = 0.0;
-	for (int i = 1; i < 1000; i++)
+    double delta = 100.0;
+	for (int i = 1; i < (int)delta; i++)
 	{
-		curr = (M_PI*vonKarman(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER)*vonKarmanPrime(i*(Target->NOSE_LENGTH / 1000.0), Target->NOSE_LENGTH, Target->DIAMETER)*2.0) / sqrt(x*x + b*r*r);
+		curr = (M_PI*vonKarman(i*(Target->NOSE_LENGTH / delta), Target->NOSE_LENGTH, Target->DIAMETER)*vonKarmanPrime(i*(Target->NOSE_LENGTH / delta), Target->NOSE_LENGTH, Target->DIAMETER)*2.0) / sqrt(x*x + b*r*r);
 		velPot += (temp + curr) / 2.0;
 		temp = curr;
 	}
@@ -164,7 +167,7 @@ double Calculator::calcVelocityPotential(double x)
 }
 double Calculator::cP(double x)
 {
-	double dX = 0.000001;
+	double dX = 0.01;
 	double vK = vonKarman(x, Target->NOSE_LENGTH, Target->DIAMETER);
 	double velPot = calcVelocityPotential(x) - calcVelocityPotential(x + dX);
 	double velPotX = (velPot) / dX;

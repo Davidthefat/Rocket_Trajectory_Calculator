@@ -22,7 +22,7 @@ enum value_t{
 	Weight,			// lbf
 	WeightRate,		// lbf/s
 	WeightEmpty,	// lbf
-	CrossSection,	// in^2
+	CrossSection,	// ft^2
 	AreaThroat,		// in^2
 	NozzleAreaRatio,// Unitless
 	Drag,			// lbf
