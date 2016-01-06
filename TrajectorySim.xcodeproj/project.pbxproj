@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED62B8BE1C2FAEFB00E395F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED62B8BD1C2FAEFB00E395F8 /* main.cpp */; };
+		EDAC1F6B1C2FB0DE00AF5160 /* Calculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F5A1C2FB0DE00AF5160 /* Calculator.cpp */; };
+		EDAC1F6C1C2FB0DE00AF5160 /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F5C1C2FB0DE00AF5160 /* Environment.cpp */; };
+		EDAC1F6D1C2FB0DE00AF5160 /* Euler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F5E1C2FB0DE00AF5160 /* Euler.cpp */; };
+		EDAC1F6E1C2FB0DE00AF5160 /* KalmanFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F601C2FB0DE00AF5160 /* KalmanFilter.cpp */; };
+		EDAC1F6F1C2FB0DE00AF5160 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F621C2FB0DE00AF5160 /* main.cpp */; };
+		EDAC1F701C2FB0DE00AF5160 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F631C2FB0DE00AF5160 /* Quaternion.cpp */; };
+		EDAC1F711C2FB0DE00AF5160 /* Vec3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F651C2FB0DE00AF5160 /* Vec3D.cpp */; };
+		EDAC1F721C2FB0DE00AF5160 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F671C2FB0DE00AF5160 /* Vector.cpp */; };
+		EDAC1F731C2FB0DE00AF5160 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F691C2FB0DE00AF5160 /* Vehicle.cpp */; };
+		EDAC1F761C3CB6A900AF5160 /* GaussianQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDAC1F741C3CB6A900AF5160 /* GaussianQuad.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +33,25 @@
 
 /* Begin PBXFileReference section */
 		ED62B8BA1C2FAEFB00E395F8 /* TrajectorySim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TrajectorySim; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED62B8BD1C2FAEFB00E395F8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EDAC1F5A1C2FB0DE00AF5160 /* Calculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Calculator.cpp; sourceTree = "<group>"; };
+		EDAC1F5B1C2FB0DE00AF5160 /* Calculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Calculator.h; sourceTree = "<group>"; };
+		EDAC1F5C1C2FB0DE00AF5160 /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = "<group>"; };
+		EDAC1F5D1C2FB0DE00AF5160 /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
+		EDAC1F5E1C2FB0DE00AF5160 /* Euler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Euler.cpp; sourceTree = "<group>"; };
+		EDAC1F5F1C2FB0DE00AF5160 /* Euler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Euler.h; sourceTree = "<group>"; };
+		EDAC1F601C2FB0DE00AF5160 /* KalmanFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KalmanFilter.cpp; sourceTree = "<group>"; };
+		EDAC1F611C2FB0DE00AF5160 /* KalmanFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KalmanFilter.h; sourceTree = "<group>"; };
+		EDAC1F621C2FB0DE00AF5160 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EDAC1F631C2FB0DE00AF5160 /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quaternion.cpp; sourceTree = "<group>"; };
+		EDAC1F641C2FB0DE00AF5160 /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
+		EDAC1F651C2FB0DE00AF5160 /* Vec3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec3D.cpp; sourceTree = "<group>"; };
+		EDAC1F661C2FB0DE00AF5160 /* Vec3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3D.h; sourceTree = "<group>"; };
+		EDAC1F671C2FB0DE00AF5160 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
+		EDAC1F681C2FB0DE00AF5160 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		EDAC1F691C2FB0DE00AF5160 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
+		EDAC1F6A1C2FB0DE00AF5160 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vehicle.h; sourceTree = "<group>"; };
+		EDAC1F741C3CB6A900AF5160 /* GaussianQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GaussianQuad.cpp; sourceTree = "<group>"; };
+		EDAC1F751C3CB6A900AF5160 /* GaussianQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaussianQuad.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +84,25 @@
 		ED62B8BC1C2FAEFB00E395F8 /* TrajectorySim */ = {
 			isa = PBXGroup;
 			children = (
-				ED62B8BD1C2FAEFB00E395F8 /* main.cpp */,
+				EDAC1F741C3CB6A900AF5160 /* GaussianQuad.cpp */,
+				EDAC1F751C3CB6A900AF5160 /* GaussianQuad.h */,
+				EDAC1F5A1C2FB0DE00AF5160 /* Calculator.cpp */,
+				EDAC1F5B1C2FB0DE00AF5160 /* Calculator.h */,
+				EDAC1F5C1C2FB0DE00AF5160 /* Environment.cpp */,
+				EDAC1F5D1C2FB0DE00AF5160 /* Environment.h */,
+				EDAC1F5E1C2FB0DE00AF5160 /* Euler.cpp */,
+				EDAC1F5F1C2FB0DE00AF5160 /* Euler.h */,
+				EDAC1F601C2FB0DE00AF5160 /* KalmanFilter.cpp */,
+				EDAC1F611C2FB0DE00AF5160 /* KalmanFilter.h */,
+				EDAC1F621C2FB0DE00AF5160 /* main.cpp */,
+				EDAC1F631C2FB0DE00AF5160 /* Quaternion.cpp */,
+				EDAC1F641C2FB0DE00AF5160 /* Quaternion.h */,
+				EDAC1F651C2FB0DE00AF5160 /* Vec3D.cpp */,
+				EDAC1F661C2FB0DE00AF5160 /* Vec3D.h */,
+				EDAC1F671C2FB0DE00AF5160 /* Vector.cpp */,
+				EDAC1F681C2FB0DE00AF5160 /* Vector.h */,
+				EDAC1F691C2FB0DE00AF5160 /* Vehicle.cpp */,
+				EDAC1F6A1C2FB0DE00AF5160 /* Vehicle.h */,
 			);
 			path = TrajectorySim;
 			sourceTree = "<group>";
@@ -118,7 +163,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED62B8BE1C2FAEFB00E395F8 /* main.cpp in Sources */,
+				EDAC1F711C2FB0DE00AF5160 /* Vec3D.cpp in Sources */,
+				EDAC1F6D1C2FB0DE00AF5160 /* Euler.cpp in Sources */,
+				EDAC1F6B1C2FB0DE00AF5160 /* Calculator.cpp in Sources */,
+				EDAC1F761C3CB6A900AF5160 /* GaussianQuad.cpp in Sources */,
+				EDAC1F6C1C2FB0DE00AF5160 /* Environment.cpp in Sources */,
+				EDAC1F6F1C2FB0DE00AF5160 /* main.cpp in Sources */,
+				EDAC1F6E1C2FB0DE00AF5160 /* KalmanFilter.cpp in Sources */,
+				EDAC1F721C2FB0DE00AF5160 /* Vector.cpp in Sources */,
+				EDAC1F731C2FB0DE00AF5160 /* Vehicle.cpp in Sources */,
+				EDAC1F701C2FB0DE00AF5160 /* Quaternion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +291,7 @@
 				ED62B8C31C2FAEFB00E395F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
