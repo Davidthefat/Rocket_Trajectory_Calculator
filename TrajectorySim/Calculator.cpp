@@ -104,8 +104,8 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 	calcWeight(dT);
 	calcThrust(Pc, Pa, Tc);
 	calcDrag();
-	double TempAcc = Target->THRUST - Target->DRAG - Target->WEIGHT;
-	*AccelerationBuf = Target->getAttitude() * TempAcc;
+	Vec3D TempAcc(0 ,Target->THRUST - Target->DRAG - Target->WEIGHT, 0);
+	*AccelerationBuf = TempAcc;
 }
 
 void Calculator::calcVelocity(double dT)
