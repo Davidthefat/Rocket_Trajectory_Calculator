@@ -3,11 +3,7 @@
 
 Vehicle::Vehicle()
 {
-	Position = new Vec3D();
-	Velocity = new Vec3D();
-	Acceleration = new Vec3D();
-	Attitude = new Vec3D();
-	(*Attitude)[Y] = 1.0;
+	Attitude[Y] = 1.0;
 	Attributes[Weight] = 100.0;
 	Attributes[BodyLength] = 114.0;
 	Attributes[NoseLength] = 32.0;
@@ -20,11 +16,7 @@ Vehicle::Vehicle()
 
 Vehicle::Vehicle(double wght, double wghtEmpty, double areaThroat, double areaRatio)
 {
-	Position = new Vec3D();
-	Velocity = new Vec3D();
-	Acceleration = new Vec3D();
-	Attitude = new Vec3D();
-	(*Attitude)[Y] = 1.0;
+	Attitude[Y] = 1.0;
 	Attributes[Weight] = wght;
 	Attributes[WeightEmpty] = wghtEmpty;
 	Attributes[BodyLength] = 114.0;
@@ -38,54 +30,51 @@ Vehicle::Vehicle(double wght, double wghtEmpty, double areaThroat, double areaRa
 
 Vehicle::~Vehicle()
 {
-	delete Position;
-	delete Velocity;
-	delete Acceleration;
-	delete Attitude;
+    
 }
 Vec3D Vehicle::getAcceleration()
 {
-	return *Acceleration;
+	return Acceleration;
 }
-void Vehicle::setAcceleration(Vec3D in)
+void Vehicle::setAcceleration(Vec3D *in)
 {
-	*Acceleration = in;
+	Acceleration = *in;
 }
 Vec3D Vehicle::getVelocity()
 {
-	return *Velocity;
+	return Velocity;
 }
 Vec3D Vehicle::getAttitude()
 {
-	return *Attitude;
+	return Attitude;
 }
 double Vehicle::getPosition(int pos)
 {
-	return (*Position)[pos];
+	return Position[pos];
 }
 double Vehicle::getVelocity(int pos)
 {
-	return (*Velocity)[pos];
+	return Velocity[pos];
 }
 double Vehicle::getAcceleration(int pos)
 {
-	return (*Acceleration)[pos];
+	return Acceleration[pos];
 }
 double Vehicle::getAttitude(int pos)
 {
-	return (*Attitude)[pos]*M_PI/180.0;
+	return Attitude[pos]*M_PI/180.0;
 }
-void Vehicle::setVelocity(Vec3D in)
+void Vehicle::setVelocity(Vec3D *in)
 {
-	*Velocity = in;
+	Velocity = *in;
 }
 Vec3D Vehicle::getPosition()
 {
-	return *Position;
+	return Position;
 }
-void Vehicle::setPosition(Vec3D in)
+void Vehicle::setPosition(Vec3D *in)
 {
-	*Position = in;
+	Position = *in;
 }
 double Vehicle::getAttribute(int pos)
 {

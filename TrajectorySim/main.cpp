@@ -5,10 +5,10 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Vehicle rocket(44.0, 15.0, 0.5, 25.0);
+	Vehicle rocket(44.0, 25.0, 0.5, 25.0);
 	Calculator calc(&rocket);
 	double Pc = 485.75;
-    double dT = 0.001;
+    double dT = 0.1;
 	cout << "Time\tWeight\tWeight Rate\tChamber Pressure\tThrust\tDrag\tu'\tv'\tw'\tu\tv\tw\tx\ty\tz\tMach" << endl;
 	for (int i = 0; rocket.getPosition()[Y] >= 0.0; i++)
 	{

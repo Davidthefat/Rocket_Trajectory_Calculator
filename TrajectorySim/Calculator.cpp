@@ -33,9 +33,12 @@ void Calculator::calcWeight(double dT)
 
 void Calculator::calcCoefDrag()
 {
+    /*
 	if (mach()>0.7)
 		Target->setAttribute(Cd, cD());
-	Target->setAttribute(Cd, 0.015);
+    else
+     */
+        Target->setAttribute(Cd, 0.010);
 }
 
 void Calculator::calcDrag()
@@ -110,12 +113,12 @@ void Calculator::calcAcceleration(double Pc, double Pa, double Tc, double dT)
 
 void Calculator::calcVelocity(double dT)
 {
-	*VelocityBuf = Target->getVelocity() + ((Target->getAcceleration()*dT)+(*AccelerationBuf*dT))*0.5;
+	*VelocityBuf = Target->getVelocity() + ((Target->getAcceleration()*dT)+((*AccelerationBuf)*dT))*0.5;
 }
 
 void Calculator::calcPosition(double dT)
 {
-	*PositionBuf = Target->getPosition() + ((Target->getVelocity()*dT)+(*VelocityBuf*dT))*0.5;
+	*PositionBuf = Target->getPosition() + ((Target->getVelocity()*dT)+((*VelocityBuf)*dT))*0.5;
 }
 
 void Calculator::update(double Pc, double dT)
@@ -125,9 +128,9 @@ void Calculator::update(double Pc, double dT)
 	calcAcceleration(Pc, Env->getPressure(Target->getPosition()[Y]), 1000.0, dT);
 	calcVelocity(dT);
 	calcPosition(dT);
-	Target->setAcceleration(*AccelerationBuf);
-	Target->setVelocity(*VelocityBuf);
-	Target->setPosition(*PositionBuf);
+	Target->setAcceleration(AccelerationBuf);
+	Target->setVelocity(VelocityBuf);
+	Target->setPosition(PositionBuf);
 }
 double Calculator::beta()
 {

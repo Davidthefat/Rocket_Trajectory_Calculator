@@ -36,10 +36,10 @@ enum value_t{
 class Vehicle
 {
 private:
-	Vec3D *Position;
-	Vec3D *Velocity;
-	Vec3D *Acceleration;
-	Vec3D *Attitude;		//0 X; 1 Y; 2 Z
+	Vec3D Position;
+	Vec3D Velocity;
+	Vec3D Acceleration;
+	Vec3D Attitude;		//0 X; 1 Y; 2 Z
 	double Attributes[14];
 public:
 	Vehicle();
@@ -55,8 +55,8 @@ public:
 	double getAttitude(int);
 	double getAttribute(int);
 	void setAttribute(int, double);
-	void setPosition(Vec3D);
-	void setVelocity(Vec3D);
-	void setAcceleration(Vec3D);
+	void setPosition(Vec3D*);
+	void setVelocity(Vec3D*);
+	void setAcceleration(Vec3D*);
 };
 

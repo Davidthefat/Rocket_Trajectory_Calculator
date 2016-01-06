@@ -18,14 +18,21 @@ void Vector<T,N>::setValue(std::size_t pos, const T val)
 template <class T, std::size_t N >
 Vector<T, N> &Vector<T, N>::operator=(const Vector<T, N>& right)
 {
-	*this->Values = *right.Values;
+    for(int i = 0; i < N; i++)
+        (*this)[i] = right[i];
 	return *this;
 }
 
 template <class T, std::size_t N >
 T &Vector<T, N>::operator[](const int& pos)
 {
-	return this->Values->at(pos);
+	return (*Values)[pos];
+}
+
+template <class T, std::size_t N >
+T &Vector<T, N>::operator[](const int& pos)const
+{
+    return Values->at(pos);
 }
 
 template <class T, std::size_t N >

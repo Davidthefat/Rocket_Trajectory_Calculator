@@ -7,7 +7,7 @@ enum coord{ X, Y, Z };
 class Vec3D
 {
 private:
-	Vector<double, 3> *elements;
+	Vector<double, 3> elements;
 public:
 	Vec3D();
 	Vec3D(Vector<double, 3>*);
@@ -15,13 +15,14 @@ public:
 	double abs();
 	Vec3D &operator=(const Vec3D&);
 	double &operator[](const int&);
+    double &operator[](const int&)const;
 	Vec3D &operator+=(const Vec3D&);
 	Vec3D &operator*=(const Vec3D&);
 	Vec3D &operator+=(double);
 	Vec3D &operator*=(double);
-	friend Vec3D operator+(const Vec3D&, const Vec3D&);
-	friend Vec3D operator+(const Vec3D&, double);
-	friend Vec3D operator*(const Vec3D&, const Vec3D&);
-	friend Vec3D operator*(const Vec3D&, double);
+	Vec3D operator+(const Vec3D&)const;
+	Vec3D operator+(double)const;
+	Vec3D operator*(const Vec3D&)const;
+	Vec3D operator*(double)const;
 };
 

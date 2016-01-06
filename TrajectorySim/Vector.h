@@ -30,6 +30,7 @@ public:
 	Vector();
 	Vector<T, N> &operator=(const Vector<T, N>&);
 	T &operator[](const int&);
+    T &operator[](const int&)const;
 	Vector<T, N> &operator+=(const Vector<T, N>&);
 	Vector<T, N> &operator*=(const Vector<T, N>&);
 	Vector<T, N> &operator+=(T);
